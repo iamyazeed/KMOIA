@@ -114,13 +114,13 @@ li p {
     min-height: 100vh;
     color: white;
     text-align: center;
+    background: url("./images/kmoia.png") center/cover no-repeat;
     font-family: 'Rosaline', sans-serif;
     padding: 20px;
     box-sizing: border-box;
     position: relative;
     z-index: 1;
     overflow: hidden;
-    background: url("images/kmoia2.1.png")
 }
 .first-window::before {
   content: "";
