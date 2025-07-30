@@ -118,9 +118,9 @@ li p {
     padding: 20px;
     box-sizing: border-box;
     position: relative;
-    background: url("/Images/kmoia2.1.png") center/cover no-repeat;
     z-index: 1;
     overflow: hidden;
+    background: url("/Images/kmoia2.1.png") center/cover no-repeat;
 }
 .first-window::before {
   content: "";
@@ -1016,8 +1016,6 @@ form button:hover {
 
     .icon {
         display: none;
-    }
-    .contact-title{
     }
 }
 
