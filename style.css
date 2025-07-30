@@ -120,7 +120,7 @@ li p {
     position: relative;
     z-index: 1;
     overflow: hidden;
-    background: url("/Images/kmoia2.1.png") center/cover no-repeat;
+    background: url("./Images/kmoia2.1.png") center/cover no-repeat;
 }
 .first-window::before {
   content: "";
