@@ -120,7 +120,7 @@ li p {
     position: relative;
     z-index: 1;
     overflow: hidden;
-    background: url("/images/kmoia2.1.png")
+    background: url("./images/kmoia2.1.png")
 }
 .first-window::before {
   content: "";
