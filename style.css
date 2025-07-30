@@ -118,7 +118,7 @@ li p {
     padding: 20px;
     box-sizing: border-box;
     position: relative;
-    background: url(../Image/kmoia2.1.png) center/cover no-repeat;
+    background: url("../Image/kmoia2.1.png") center/cover no-repeat;
     z-index: 1;
     overflow: hidden;
 }
