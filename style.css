@@ -24,12 +24,13 @@ nav {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0px 0px 5px;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
     height: 62px;
     padding: 0 10px; /* was 20px, reduced */
     font-family: Montserrat;
@@ -58,6 +59,11 @@ li p {
     color: #000000;
     cursor: pointer;
     transition: all 0.15s ease;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 20px;
+    padding: 5px 15px;
 }
 
 .kmoia {
@@ -453,7 +459,7 @@ li p {
 }
 
 .milestones-kmoia{
-    padding: 50px 20px;
+    padding: 25px 20px;
     text-align: center;
 }
 .milestone-title{
@@ -568,6 +574,97 @@ li p {
         display: none;
     }
 
+}
+
+/*KISWA*/
+
+.kiswa-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-family: 'Rosaline';
+    color: #000;
+    margin: 15px auto;
+}
+
+
+.kiswa-container-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    background: linear-gradient(to left, #f1f1f1, #dfdfdf);
+    padding: 60px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.kiswa-text-container,
+.kiswa-description {
+    width: 35%;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.kiswa-text-container p span {
+    display: block;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.kiswa-logo-container {
+    width: 170px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 20px;
+    z-index: 1;
+}
+
+.vertical-line-kiswa {
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, #1d8ad3, #0032bd);
+}
+
+.logo-kiswa {
+    width: 100px;
+    background: linear-gradient(#0737ff,#04a78c);
+    border-radius: 50%;
+    padding: 15px 5px;
+}
+
+.kiswa-description p {
+    line-height: 1.6;
+}
+.image-container{
+    margin-bottom: 30px;
+}
+/* Responsive */
+@media (max-width: 768px) {
+    .kiswa-container-box {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .kiswa-text-container,
+    .kiswa-description {
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .kiswa-logo-container {
+        margin: 20px 0;
+    }
+
+    .vertical-line-kiswa {
+        display: none;
+    }
+    
 }
 
 /* countdown-timer ↓ ↓ ↓ */
@@ -1118,6 +1215,9 @@ form button:hover {
 }
 
 @media (max-width: 600px) {
+    .footer-section{
+        margin-left: 10px;
+    }
     .logo-title {
         flex-direction: column;
         align-items: flex-start;
