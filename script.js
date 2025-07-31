@@ -60,7 +60,7 @@ function goToPayment(plan) {
 
         setTimeout(() => { 
             document.getElementById("thank-you-card").classList.remove("show");
-        }, 2500);
+        }, 1700);
 
           document.getElementById('contact-form').reset();
         }, function (error) {
