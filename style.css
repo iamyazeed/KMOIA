@@ -32,7 +32,7 @@ nav {
     box-shadow: 0px 0px 5px;
     height: 62px;
     padding: 0 10px; /* was 20px, reduced */
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: Montserrat;
     z-index: 100;
     box-sizing: border-box; /* added to control padding */
 }
@@ -61,14 +61,14 @@ li p {
 }
 
 .kmoia {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
     color: #1f7fec;
 }
 
 .place {
     font-weight: 500;
-    font-size: 17px;
+    font-size: 14.5px;
 }
 
 /* Hamburger menu icon hidden by default */
@@ -150,10 +150,11 @@ li p {
 }
 
 .caption-1 {
-    font-size: clamp(2.5rem, 6vw, 6rem); /* responsive font size */
+    font-size: clamp(2.5rem, 6vw, 5rem); /* responsive font size */
     font-weight: bold;
     text-shadow: 10px 10px 15px rgba(0,0,0,0.5);
     color: #008dff;
+    font-family: Montserrat;
 }
 
 .celebration {
@@ -163,7 +164,7 @@ li p {
 }
 
 .yr {
-    color: rgb(100, 0, 0);
+    color: rgb(250 201 59);
 }
 
 .kmoia-explanation {
