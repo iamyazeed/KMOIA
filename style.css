@@ -115,7 +115,7 @@ li p {
     color: white;
     text-align: center;
     background: url("./images/kmoia.png") center/cover no-repeat;
-    font-family: 'Rosaline', sans-serif;
+    font-family: 'Rosaline';
     padding: 20px;
     box-sizing: border-box;
     position: relative;
@@ -154,7 +154,6 @@ li p {
     font-weight: bold;
     text-shadow: 10px 10px 15px rgba(0,0,0,0.5);
     color: #008dff;
-
 }
 
 .celebration {
@@ -257,7 +256,7 @@ li p {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    font-family: Rosaline, sans-serif;
+    font-family: 'Rosaline';
     color: #000;
     margin: 20px auto;
 }
