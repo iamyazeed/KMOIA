@@ -1,0 +1,282 @@
+@import "tailwindcss";
+
+/* Class-based dark mode (next-themes writes .dark on <html>). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------------
+   Design tokens — KMO Islamic Academy
+   Raw values live on :root / .dark; @theme inline maps them onto Tailwind
+   utilities. Never hardcode a colour anywhere else in the codebase.
+--------------------------------------------------------------------------- */
+
+:root {
+  /* Brand — built around #1f7fec, the chosen institutional blue.
+     Contrast is symmetric, so each ratio below applies both to the colour as
+     text on white and to white text on it as a fill. AA needs 4.5:1 for
+     body-size text, 3:1 for large text and UI elements:
+       brand-500 #1f7fec  → 3.96:1  the brand blue. Large headings, icons,
+                                    borders, markers. NOT body text or button
+                                    fills — it misses AA at small sizes.
+       brand-600 #1a6fd0  → 4.97:1  button fills, links, small text. AA safe.
+       brand-700 #145aab  → 6.7:1   strong text and headings on white. */
+  --brand-50: #eaf3fe;
+  --brand-100: #d2e6fd;
+  --brand-200: #a8ccfa;
+  --brand-300: #6faef6;
+  --brand-400: #3f93f0;
+  --brand-500: #1f7fec;
+  --brand-600: #1a6fd0;
+  --brand-700: #145aab;
+  --brand-800: #0f4382;
+  --brand-900: #0a2c56;
+
+  /* Accent — warm gold. Large text, borders and icons only. */
+  --accent-300: #e6d391;
+  --accent-400: #d9bb5b;
+  --accent-500: #c9a227;
+  --accent-600: #a8851c;
+
+  /* Surfaces & text */
+  /* White is the primary surface. Sections alternate between pure white and a
+     faint blue-grey tint rather than between two off-whites, so the page reads
+     as white without becoming flat. */
+  --paper: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f3f7fc;
+  --ink: #0d1420;
+  --muted: #56637a;
+  --line: #e3eaf3;
+
+  /* Semantic */
+  --success: #12805c;
+  --warning: #b45309;
+  --danger: #b42318;
+
+  /* Effects */
+  --glass-bg: rgb(255 255 255 / 0.72);
+  --glass-border: rgb(255 255 255 / 0.5);
+  --shadow-soft-v: 0 1px 2px rgb(15 21 34 / 0.04), 0 8px 24px rgb(15 21 34 / 0.06);
+  --shadow-lift-v: 0 2px 4px rgb(15 21 34 / 0.05), 0 16px 40px rgb(15 21 34 / 0.1);
+  --ring: var(--brand-500);
+}
+
+.dark {
+  /* Dark mode inverts the ramp. #1f7fec is too dim on a dark background for
+     text, so brand-500 lightens to #4f9dff (8.0:1 on --paper) while the raw
+     brand blue moves down the scale for fills. */
+  --brand-50: #0a2c56;
+  --brand-100: #0f4382;
+  --brand-200: #145aab;
+  --brand-300: #1a6fd0;
+  --brand-400: #1f7fec;
+  --brand-500: #4f9dff;
+  --brand-600: #7ab6ff;
+  --brand-700: #a8ccfa;
+  --brand-800: #d2e6fd;
+  --brand-900: #eaf3fe;
+
+  --accent-300: #a8851c;
+  --accent-400: #c9a227;
+  --accent-500: #e0be55;
+  --accent-600: #ecd48c;
+
+  --paper: #070c14;
+  --surface: #0e1520;
+  --surface-2: #161f2c;
+  --ink: #eef1f6;
+  --muted: #9aa5b5;
+  --line: #212b39;
+
+  --success: #34a37a;
+  --warning: #e0a33f;
+  --danger: #e26a5f;
+
+  --glass-bg: rgb(14 21 32 / 0.72);
+  --glass-border: rgb(255 255 255 / 0.08);
+  --shadow-soft-v: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.35);
+  --shadow-lift-v: 0 2px 4px rgb(0 0 0 / 0.35), 0 16px 40px rgb(0 0 0 / 0.45);
+  --ring: var(--brand-500);
+}
+
+@theme inline {
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+
+  --color-accent-300: var(--accent-300);
+  --color-accent-400: var(--accent-400);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-malayalam: var(--font-manjari), var(--font-inter), sans-serif;
+
+  /* Fluid type scale */
+  --text-display: clamp(2.75rem, 1.6rem + 4.6vw, 5rem);
+  --text-display--line-height: 1.04;
+  --text-display--letter-spacing: -0.025em;
+  --text-h1: clamp(2.25rem, 1.5rem + 3vw, 3.75rem);
+  --text-h1--line-height: 1.08;
+  --text-h1--letter-spacing: -0.022em;
+  --text-h2: clamp(1.75rem, 1.25rem + 2vw, 2.75rem);
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.018em;
+  --text-h3: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem);
+  --text-h3--line-height: 1.25;
+  --text-h3--letter-spacing: -0.012em;
+  --text-lead: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
+  --text-lead--line-height: 1.65;
+  --text-eyebrow: 0.8125rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.14em;
+
+  /* Section rhythm — large whitespace is a core design instruction */
+  --spacing-section-sm: 4rem;
+  --spacing-section: 6rem;
+  --spacing-section-lg: 8rem;
+  --spacing-section-xl: 10rem;
+
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+
+  --shadow-soft: var(--shadow-soft-v);
+  --shadow-lift: var(--shadow-lift-v);
+
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --container-content: 68ch;
+
+  --animate-fade-in: fade-in 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-fade-out: fade-out 150ms cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-modal-in: modal-in 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-fraunces), ui-serif, Georgia, serif;
+    font-weight: 500;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Malayalam content renders in its own face wherever lang="ml" is set. */
+  :lang(ml) {
+    font-family: var(--font-manjari), var(--font-inter), sans-serif;
+    line-height: 1.85;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  ::selection {
+    background-color: var(--brand-700);
+    color: #fff;
+  }
+
+  .dark ::selection {
+    background-color: var(--brand-400);
+    color: var(--brand-50);
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism — permitted in exactly three places: sticky header,
+     donation modal, lightbox chrome. Do not extend this list. */
+  .glass {
+    background-color: var(--glass-bg);
+    border-color: var(--glass-border);
+    /* Composed from Tailwind's own utilities: raw backdrop-filter
+       declarations are stripped by Lightning CSS during the build. */
+    @apply backdrop-blur-xl backdrop-saturate-150;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

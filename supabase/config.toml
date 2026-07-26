@@ -1,0 +1,37 @@
+# Supabase project configuration.
+# Link a real project with:  npx supabase link --project-ref <ref>
+# Apply migrations with:     npx supabase db push
+
+project_id = "kmoia"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 17
+
+[studio]
+enabled = true
+port = 54323
+
+[storage]
+enabled = true
+file_size_limit = "20MiB"
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["http://localhost:3000/**"]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+# Administrators are invited by a super admin — never self-signup.
+enable_signup = false
+
+[auth.email]
+enable_signup = false
+enable_confirmations = true
