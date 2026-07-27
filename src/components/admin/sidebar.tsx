@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -67,25 +66,9 @@ export function Sidebar({ role }: { role: UserRole }) {
       <div className="sticky top-0 flex h-dvh flex-col">
         <Link
           href="/admin"
-          className="flex h-16 shrink-0 items-center gap-3 border-b border-line px-5"
+          className="flex h-16 shrink-0 items-center border-b border-line px-5 font-display text-sm font-semibold tracking-[-0.03em] transition-opacity hover:opacity-70"
         >
-          <Image
-            src="/brand/kmoia-logo.png"
-            alt=""
-            width={32}
-            height={32}
-            className="size-8 w-auto object-contain dark:hidden"
-          />
-          <Image
-            src="/brand/kmoia-logo-white.png"
-            alt=""
-            width={32}
-            height={32}
-            className="hidden size-8 w-auto object-contain dark:block"
-          />
-          <span className="font-display text-sm font-semibold">
-            KMOIA Admin
-          </span>
+          KMO<span className="ml-1.5 font-normal text-muted">Admin</span>
         </Link>
 
         <div className="flex-1 overflow-y-auto">

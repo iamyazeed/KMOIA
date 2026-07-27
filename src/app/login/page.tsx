@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 import { LoginForm } from "@/app/login/login-form";
@@ -22,22 +21,9 @@ export default async function LoginPage({
     <main className="flex min-h-dvh items-center justify-center py-s1">
       <Container size="narrow" className="max-w-md">
         <div className="flex flex-col items-center text-center">
-          <Image
-            src="/brand/kmoia-logo.png"
-            alt=""
-            width={56}
-            height={56}
-            priority
-            className="size-14 w-auto object-contain dark:hidden"
-          />
-          <Image
-            src="/brand/kmoia-logo-white.png"
-            alt=""
-            width={56}
-            height={56}
-            priority
-            className="hidden size-14 w-auto object-contain dark:block"
-          />
+          <p className="font-display text-[0.9375rem] font-semibold tracking-[-0.03em]">
+            KMO <span className="font-normal text-muted">Islamic Academy</span>
+          </p>
           <h1 className="text-h2 mt-6">Administration</h1>
           <p className="mt-3 text-muted">
             Sign in to manage {siteConfig.name} content.

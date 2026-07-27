@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
@@ -12,25 +11,9 @@ export function Footer() {
       <Container size="wide" className="py-s1">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div className="max-w-sm">
-            <div className="flex items-center gap-3">
-              <Image
-                src="/brand/kmoia-logo.png"
-                alt=""
-                width={48}
-                height={48}
-                className="size-11 w-auto object-contain dark:hidden"
-              />
-              <Image
-                src="/brand/kmoia-logo-white.png"
-                alt=""
-                width={48}
-                height={48}
-                className="hidden size-11 w-auto object-contain dark:block"
-              />
-              <span className="font-display text-lg font-semibold">
-                {siteConfig.name}
-              </span>
-            </div>
+            <p className="font-display text-lg font-medium tracking-[-0.03em]">
+              {siteConfig.name}
+            </p>
             <p className="mt-5 leading-relaxed text-muted">
               {siteConfig.tagline}
             </p>
