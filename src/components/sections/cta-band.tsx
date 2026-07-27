@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { Reveal } from "@/components/motion/reveal";
@@ -5,16 +6,20 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 
+/**
+ * Closing call to action.
+ *
+ * A single statement set large, with one primary action. No card, no border,
+ * no coloured panel — the whole width of the page is the emphasis.
+ */
 export function CtaBand({
-  eyebrow = "Sponsor a Student",
   title = "₹3,000 a month keeps one student learning.",
-  description = "Every student's education, accommodation and food is provided free of cost. That is made possible entirely by people who choose to give.",
+  description = "Education, accommodation and food are provided free of cost to every student here. That is funded entirely by people who choose to give.",
   primaryHref = "/sponsor",
-  primaryLabel = "Sponsor a Student",
+  primaryLabel = "Sponsor a student",
   secondaryHref = "/contact",
-  secondaryLabel = "Contact the Academy",
+  secondaryLabel = "Contact the academy",
 }: {
-  eyebrow?: string;
   title?: string;
   description?: string;
   primaryHref?: string;
@@ -23,19 +28,19 @@ export function CtaBand({
   secondaryLabel?: string;
 }) {
   return (
-    <Section spacing="md" surface="tint">
+    <Section spacing="s3" divided>
       <Container size="wide">
-        <Reveal className="flex flex-col items-start gap-8 rounded-xl border border-line bg-surface p-8 shadow-soft sm:p-12 lg:flex-row lg:items-center lg:justify-between">
-          <div className="max-w-2xl">
-            <p className="text-eyebrow font-semibold uppercase text-brand-600 dark:text-brand-500">
-              {eyebrow}
-            </p>
-            <h2 className="text-h2 mt-4">{title}</h2>
-            <p className="mt-5 leading-relaxed text-muted">{description}</p>
-          </div>
-          <div className="flex shrink-0 flex-wrap gap-4">
+        <Reveal className="max-w-3xl">
+          <h2 className="text-h1">{title}</h2>
+          <p className="text-lead mt-7 max-w-[var(--container-prose)] text-muted">
+            {description}
+          </p>
+          <div className="mt-11 flex flex-wrap items-center gap-3">
             <Button asChild size="lg">
-              <Link href={primaryHref}>{primaryLabel}</Link>
+              <Link href={primaryHref}>
+                {primaryLabel}
+                <ArrowRight />
+              </Link>
             </Button>
             <Button asChild size="lg" variant="secondary">
               <Link href={secondaryHref}>{secondaryLabel}</Link>

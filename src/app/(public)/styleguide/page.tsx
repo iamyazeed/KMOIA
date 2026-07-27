@@ -20,21 +20,19 @@ export const metadata: Metadata = {
 };
 
 const swatches = [
-  { name: "brand-700", className: "bg-brand-700" },
-  { name: "brand-600", className: "bg-brand-600" },
-  { name: "brand-500", className: "bg-brand-500" },
-  { name: "brand-300", className: "bg-brand-300" },
-  { name: "brand-50", className: "bg-brand-50" },
-  { name: "accent-500", className: "bg-accent-500" },
-  { name: "surface", className: "bg-surface" },
-  { name: "surface-2", className: "bg-surface-2" },
-  { name: "paper", className: "bg-paper" },
+  { name: "accent · #2563EB", className: "bg-accent" },
+  { name: "blue-700", className: "bg-blue-700" },
+  { name: "accent-soft", className: "bg-accent-soft" },
   { name: "ink", className: "bg-ink" },
+  { name: "muted", className: "bg-muted" },
+  { name: "line", className: "bg-line" },
+  { name: "subtle", className: "bg-subtle" },
+  { name: "paper", className: "bg-paper" },
 ];
 
 export default function StyleguidePage() {
   return (
-    <Section spacing="md">
+    <Section spacing="s2">
       <Container>
         <SectionHeader
           eyebrow="Phase 0"
@@ -62,21 +60,21 @@ export default function StyleguidePage() {
           <section>
             <h2 className="text-h3">Typography</h2>
             <div className="mt-6 flex flex-col gap-5">
-              <p className="text-display">Display — Fraunces</p>
+              <p className="text-hero">Display — Geist</p>
               <p className="text-h1">Heading 1</p>
               <p className="text-h2">Heading 2</p>
               <p className="text-h3">Heading 3</p>
-              <p className="text-lead max-w-[var(--container-content)] text-muted">
+              <p className="text-lead max-w-[var(--container-prose)] text-muted">
                 Lead paragraph — Inter, set at a comfortable measure with
                 generous line height for extended reading.
               </p>
-              <p className="max-w-[var(--container-content)]">
+              <p className="max-w-[var(--container-prose)]">
                 Body copy at the default size. The measure is capped so lines
                 never exceed a comfortable reading length on wide screens.
               </p>
               <p
                 lang="ml"
-                className="max-w-[var(--container-content)] text-lead"
+                className="max-w-[var(--container-prose)] text-lead"
               >
                 കെ.എം.ഒ ഇസ്ലാമിക് അക്കാദമി കൊടുവള്ളി — മലയാളം വാർത്തകൾക്കുള്ള
                 അക്ഷരരൂപം ഇവിടെ പരിശോധിക്കാം.
@@ -90,7 +88,7 @@ export default function StyleguidePage() {
               <Button>Primary</Button>
               <Button variant="secondary">Secondary</Button>
               <Button variant="ghost">Ghost</Button>
-              <Button variant="accent">Accent</Button>
+              <Button variant="ghost">Ghost alt</Button>
               <Button variant="link">Link</Button>
               <Button disabled>Disabled</Button>
             </div>
@@ -156,7 +154,7 @@ export default function StyleguidePage() {
 
           <section>
             <h2 className="text-h3">Overlay</h2>
-            <p className="mt-2 max-w-[var(--container-content)] text-muted">
+            <p className="mt-2 max-w-[var(--container-prose)] text-muted">
               The base for the donation modal and gallery lightbox — focus
               trapped, Escape to close, glass chrome.
             </p>

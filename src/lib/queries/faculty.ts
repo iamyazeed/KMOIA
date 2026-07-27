@@ -2,6 +2,7 @@ import "server-only";
 
 import { CACHE_TAGS } from "@/lib/cache-tags";
 import { cachedQuery, fallback, MEDIA_FIELDS } from "@/lib/queries/utils";
+import type { MediaRef } from "@/lib/queries/content";
 import { supabasePublic } from "@/lib/supabase/public";
 
 /**
@@ -19,6 +20,23 @@ const FACULTY_FIELDS = `
   photo:media!faculty_photo_media_id_fkey ( ${MEDIA_FIELDS} )
 `;
 
+/**
+ * Joined faculty row. Declared explicitly because the hand-written Database
+ * type carries no `Relationships`, so supabase-js cannot infer embedded shapes
+ * on its own. `npm run db:types` makes this redundant.
+ */
+export type FacultyRow = {
+  id: string;
+  name: string;
+  slug: string;
+  designation: string;
+  qualification: string;
+  biography: string | null;
+  display_order: number;
+  department: { id: string; name: string; slug: string } | null;
+  photo: MediaRef;
+};
+
 export const getFaculty = cachedQuery(
   ["faculty", "list"],
   [CACHE_TAGS.faculty, CACHE_TAGS.departments],
@@ -27,7 +45,8 @@ export const getFaculty = cachedQuery(
       .from("faculty")
       .select(FACULTY_FIELDS)
       .order("display_order", { ascending: true })
-      .order("name", { ascending: true });
+      .order("name", { ascending: true })
+      .returns<FacultyRow[]>();
 
     if (error) return fallback("faculty.list", error, []);
     return data ?? [];

@@ -3,10 +3,7 @@ import Link from "next/link";
 
 import { Reveal } from "@/components/motion/reveal";
 import { CtaBand } from "@/components/sections/cta-band";
-import { ContentIcon } from "@/components/sections/content-icon";
 import { PageHero } from "@/components/sections/page-hero";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardBody, CardDescription, CardTitle } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { defaultAchievements } from "@/content/defaults";
@@ -20,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 const FALLBACK_CATEGORIES = [
-  { id: "institutional", slug: "institutional", name: "Institutional Achievements" },
+  { id: "institutional", slug: "institutional", name: "Institutional" },
   { id: "academic", slug: "academic", name: "Academic Excellence" },
   { id: "student", slug: "student", name: "Student Excellence" },
   { id: "infrastructure", slug: "infrastructure", name: "Infrastructure" },
@@ -45,7 +42,6 @@ export default async function AchievementsPage({
         id: a.id,
         title: a.title,
         description: a.description,
-        icon: a.icon ?? "award",
         year: a.year,
         categorySlug: a.category?.slug ?? null,
         categoryName: a.category?.name ?? null,
@@ -54,8 +50,7 @@ export default async function AchievementsPage({
         id: `default-${index}`,
         title: a.title,
         description: a.description,
-        icon: "award",
-        year: null,
+        year: null as number | null,
         categorySlug: a.category,
         categoryName:
           FALLBACK_CATEGORIES.find((c) => c.slug === a.category)?.name ?? null,
@@ -64,8 +59,8 @@ export default async function AchievementsPage({
   const tabs =
     categories.length > 0 && usingLiveData ? categories : FALLBACK_CATEGORIES;
 
-  // Filtering happens on the server so each view is a real, shareable and
-  // indexable URL rather than client-side state.
+  // Filtering on the server keeps every view a real, shareable, indexable URL
+  // and ships no JavaScript to do it.
   const visible = activeSlug
     ? items.filter((item) => item.categorySlug === activeSlug)
     : items;
@@ -74,14 +69,14 @@ export default async function AchievementsPage({
     <>
       <PageHero
         eyebrow="Achievements"
-        title="A record built over a decade of service."
-        description="Accreditation, academic distinction, student achievement and the infrastructure that supports them."
+        title="A record built over a decade."
+        description="Accreditation, academic distinction and student achievement across the Darul Huda network."
       />
 
-      <Section>
+      <Section spacing="s2">
         <Container size="wide">
-          <nav aria-label="Achievement categories">
-            <ul className="flex flex-wrap gap-2">
+          <nav aria-label="Achievement categories" className="mb-16">
+            <ul className="flex flex-wrap gap-1">
               <li>
                 <FilterChip href="/achievements" active={!activeSlug}>
                   All
@@ -101,40 +96,43 @@ export default async function AchievementsPage({
           </nav>
 
           {visible.length === 0 ? (
-            <p className="mt-12 text-muted">
+            <p className="text-muted">
               Nothing has been published in this category yet.{" "}
-              <Link
-                href="/achievements"
-                className="text-brand-600 underline-offset-4 hover:underline dark:text-brand-500"
-              >
-                View all achievements
+              <Link href="/achievements" className="text-accent hover:underline">
+                View all
               </Link>
               .
             </p>
           ) : (
-            <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            /* An editorial index rather than a card grid: each entry is a row
+               with the year as a marginal note, the claim as a heading and one
+               line of substantiation. Hairlines separate; nothing boxes. */
+            <ul className="border-t border-line">
               {visible.map((item, index) => (
-                <li key={item.id} className="h-full">
-                  <Reveal delay={Math.min(index * 0.04, 0.2)} className="h-full">
-                    <Card variant="elevated" interactive className="h-full">
-                      <CardBody className="flex h-full flex-col">
-                        <span className="mb-5 inline-flex size-11 items-center justify-center rounded-md bg-brand-50 text-brand-600 dark:bg-brand-100 dark:text-brand-700">
-                          <ContentIcon name={item.icon} className="size-5" />
+                <li key={item.id} className="border-b border-line">
+                  <Reveal delay={Math.min(index * 0.03, 0.18)}>
+                    <div className="grid gap-3 py-9 md:grid-cols-12 md:gap-8">
+                      <div className="md:col-span-2">
+                        <span className="font-display text-[0.8125rem] tabular-nums text-faint">
+                          {item.year ?? String(index + 1).padStart(2, "0")}
                         </span>
-                        <CardTitle className="text-h3">{item.title}</CardTitle>
+                      </div>
+                      <div className="md:col-span-6">
+                        <h2 className="text-h3">{item.title}</h2>
                         {item.description ? (
-                          <CardDescription>{item.description}</CardDescription>
+                          <p className="mt-3 max-w-prose text-[0.9375rem] leading-relaxed text-muted">
+                            {item.description}
+                          </p>
                         ) : null}
-                        <div className="mt-5 flex flex-wrap items-center gap-2">
-                          {item.categoryName ? (
-                            <Badge variant="neutral">{item.categoryName}</Badge>
-                          ) : null}
-                          {item.year ? (
-                            <Badge variant="outline">{item.year}</Badge>
-                          ) : null}
-                        </div>
-                      </CardBody>
-                    </Card>
+                      </div>
+                      <div className="md:col-span-4 md:text-right">
+                        {item.categoryName ? (
+                          <span className="text-[0.8125rem] text-faint">
+                            {item.categoryName}
+                          </span>
+                        ) : null}
+                      </div>
+                    </div>
                   </Reveal>
                 </li>
               ))}
@@ -162,10 +160,8 @@ function FilterChip({
       href={href}
       aria-current={active ? "true" : undefined}
       className={cn(
-        "inline-flex rounded-full px-4 py-2 text-sm transition-colors",
-        active
-          ? "bg-brand-600 font-medium text-white"
-          : "border border-line text-muted hover:border-brand-200 hover:text-ink",
+        "inline-flex rounded-md px-3.5 py-2 text-[0.875rem] transition-colors duration-200",
+        active ? "bg-ink text-paper" : "text-muted hover:bg-subtle hover:text-ink",
       )}
     >
       {children}

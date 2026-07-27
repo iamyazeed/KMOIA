@@ -21,13 +21,13 @@ export function Topbar({ profile }: { profile: SessionProfile }) {
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger
           aria-label="Open menu"
-          className="inline-flex size-10 items-center justify-center rounded-md text-muted transition-colors hover:bg-surface-2 hover:text-ink lg:hidden"
+          className="inline-flex size-10 items-center justify-center rounded-md text-muted transition-colors hover:bg-subtle hover:text-ink lg:hidden"
         >
           <Menu className="size-5" aria-hidden />
         </Dialog.Trigger>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-50 bg-ink/45 data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out lg:hidden" />
-          <Dialog.Content className="fixed inset-y-0 left-0 z-50 w-[min(18rem,85vw)] overflow-y-auto bg-surface shadow-lift focus:outline-none data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out lg:hidden">
+          <Dialog.Content className="fixed inset-y-0 left-0 z-50 w-[min(18rem,85vw)] overflow-y-auto bg-surface shadow-lg focus:outline-none data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out lg:hidden">
             <VisuallyHidden asChild>
               <Dialog.Title>Admin navigation</Dialog.Title>
             </VisuallyHidden>
@@ -42,7 +42,7 @@ export function Topbar({ profile }: { profile: SessionProfile }) {
               </span>
               <Dialog.Close
                 aria-label="Close menu"
-                className="inline-flex size-9 items-center justify-center rounded-full text-muted hover:bg-surface-2 hover:text-ink"
+                className="inline-flex size-9 items-center justify-center rounded-full text-muted hover:bg-subtle hover:text-ink"
               >
                 <X className="size-4" aria-hidden />
               </Dialog.Close>

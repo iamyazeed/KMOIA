@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils/cn";
 const fieldStyles = cn(
   "w-full rounded-md border border-line bg-surface px-4 text-[0.9375rem] text-ink",
   "placeholder:text-muted/70 transition-colors duration-200",
-  "hover:border-brand-200 focus:border-brand-500 focus:outline-none",
+  "hover:border-line-strong focus:border-accent focus:outline-none",
   "disabled:cursor-not-allowed disabled:opacity-60",
   "aria-[invalid=true]:border-danger",
 );

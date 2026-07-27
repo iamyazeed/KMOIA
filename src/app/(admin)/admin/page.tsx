@@ -152,7 +152,7 @@ export default async function AdminDashboard() {
                     <CardBody className="p-5">
                       <AdminIcon
                         name={tile.icon}
-                        className="size-5 text-brand-500"
+                        className="size-5 text-accent"
                       />
                       <p className="mt-4 font-display text-3xl font-semibold">
                         {tile.value}

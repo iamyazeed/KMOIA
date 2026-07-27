@@ -9,11 +9,11 @@ const cardVariants = cva(
     variants: {
       variant: {
         default: "border-line bg-surface",
-        elevated: "border-line bg-surface shadow-soft",
+        elevated: "border-line bg-surface shadow-sm",
         outline: "border-line bg-transparent",
       },
       interactive: {
-        true: "hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-lift",
+        true: "hover:-translate-y-0.5 hover:border-line-strong hover:shadow-lg",
         false: "",
       },
     },

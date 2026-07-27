@@ -72,7 +72,7 @@ export default async function CampusLifePage() {
         </Container>
       </Section>
 
-      <Section surface="tint">
+      <Section tone="subtle">
         <Container size="wide">
           <div className="grid gap-14 lg:grid-cols-2 lg:items-start">
             <Reveal>

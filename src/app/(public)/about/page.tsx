@@ -74,7 +74,7 @@ export default async function AboutPage() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <div className="relative aspect-4/3 overflow-hidden rounded-xl border border-line shadow-soft">
+              <div className="relative aspect-4/3 overflow-hidden rounded-xl border border-line shadow-sm">
                 <Image
                   src="/images/campus-hero.png"
                   alt="The KMO Islamic Academy campus"
@@ -88,7 +88,7 @@ export default async function AboutPage() {
         </Container>
       </Section>
 
-      <Section surface="tint">
+      <Section tone="subtle">
         <Container size="wide">
           <Reveal>
             <SectionHeader

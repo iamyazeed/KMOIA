@@ -7,40 +7,45 @@ import { cn } from "@/lib/utils/cn";
 export function Logo({
   className,
   showWordmark = true,
+  inverted = false,
 }: {
   className?: string;
   showWordmark?: boolean;
+  inverted?: boolean;
 }) {
   return (
     <Link
       href="/"
       aria-label={`${siteConfig.name} — home`}
-      className={cn("flex items-center gap-3", className)}
+      className={cn("flex items-center gap-2.5", className)}
     >
       <Image
-        src="/brand/kmoia-logo.png"
+        src={inverted ? "/brand/kmoia-logo-white.png" : "/brand/kmoia-logo.png"}
         alt=""
-        width={44}
-        height={44}
+        width={36}
+        height={36}
         priority
-        className="size-10 w-auto object-contain dark:hidden"
+        className={cn("h-9 w-auto object-contain", !inverted && "dark:hidden")}
       />
-      <Image
-        src="/brand/kmoia-logo-white.png"
-        alt=""
-        width={44}
-        height={44}
-        priority
-        className="hidden size-10 w-auto object-contain dark:block"
-      />
+      {!inverted ? (
+        <Image
+          src="/brand/kmoia-logo-white.png"
+          alt=""
+          width={36}
+          height={36}
+          priority
+          className="hidden h-9 w-auto object-contain dark:block"
+        />
+      ) : null}
+
       {showWordmark ? (
-        <span className="hidden leading-tight sm:block">
-          <span className="logo-name block font-display text-[0.9375rem] font-semibold tracking-tight text-ink">
-            {siteConfig.name}
-          </span>
-          <span className="logo-sub block text-[0.6875rem] uppercase tracking-[0.16em] text-muted">
-            {siteConfig.location}
-          </span>
+        <span
+          className={cn(
+            "hidden font-display text-[0.9375rem] font-medium tracking-[-0.02em] sm:block",
+            inverted ? "text-white" : "text-ink",
+          )}
+        >
+          KMO Islamic Academy
         </span>
       ) : null}
     </Link>

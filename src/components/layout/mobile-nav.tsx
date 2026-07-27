@@ -12,7 +12,14 @@ import { Button } from "@/components/ui/button";
 import { mainNav } from "@/config/site";
 import { cn } from "@/lib/utils/cn";
 
-export function MobileNav() {
+/**
+ * Mobile navigation.
+ *
+ * Full-screen rather than a narrow drawer, with the links set at display size.
+ * On a phone the menu is the whole experience for that moment — treating it as
+ * a page rather than a panel is what makes it feel considered.
+ */
+export function MobileNav({ inverted = false }: { inverted?: boolean }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
@@ -20,16 +27,20 @@ export function MobileNav() {
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger
         aria-label="Open menu"
-        className="inline-flex size-10 items-center justify-center rounded-full border border-line text-ink transition-colors hover:bg-surface-2 lg:hidden"
+        className={cn(
+          "inline-flex size-10 items-center justify-center rounded-md transition-colors lg:hidden",
+          inverted
+            ? "text-white hover:bg-white/10"
+            : "text-ink hover:bg-subtle",
+        )}
       >
-        <Menu className="size-[18px]" aria-hidden />
+        <Menu className="size-5" aria-hidden />
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-ink/45 backdrop-blur-[2px] data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out lg:hidden" />
         <Dialog.Content
           className={cn(
-            "fixed inset-y-0 right-0 z-50 flex w-[min(22rem,88vw)] flex-col bg-surface shadow-lift focus:outline-none lg:hidden",
+            "fixed inset-0 z-50 flex flex-col bg-paper focus:outline-none lg:hidden",
             "data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out",
           )}
         >
@@ -37,56 +48,59 @@ export function MobileNav() {
             <Dialog.Title>Site navigation</Dialog.Title>
           </VisuallyHidden>
           <VisuallyHidden asChild>
-            <Dialog.Description>
-              Primary navigation links for the site
-            </Dialog.Description>
+            <Dialog.Description>Primary links for the site</Dialog.Description>
           </VisuallyHidden>
 
-          <div className="flex h-18 items-center justify-between border-b border-line px-5">
-            <span className="text-eyebrow font-semibold uppercase text-muted">
-              Menu
+          <div className="flex h-16 shrink-0 items-center justify-between px-5 sm:px-8">
+            <span className="font-display text-[0.9375rem] font-medium tracking-[-0.02em]">
+              KMO Islamic Academy
             </span>
             <Dialog.Close
               aria-label="Close menu"
-              className="inline-flex size-10 items-center justify-center rounded-full text-muted transition-colors hover:bg-surface-2 hover:text-ink"
+              className="inline-flex size-10 items-center justify-center rounded-md text-muted transition-colors hover:bg-subtle hover:text-ink"
             >
-              <X className="size-[18px]" aria-hidden />
+              <X className="size-5" aria-hidden />
             </Dialog.Close>
           </div>
 
-          <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-3 py-4">
+          <nav
+            aria-label="Mobile"
+            className="flex-1 overflow-y-auto px-5 pt-6 sm:px-8"
+          >
             <ul className="flex flex-col">
-              {[...mainNav, { label: "Contact", href: "/contact" }].map((item) => {
-                const active =
-                  pathname === item.href || pathname.startsWith(`${item.href}/`);
+              {[...mainNav, { label: "Contact", href: "/contact" }].map(
+                (item, index) => {
+                  const active =
+                    pathname === item.href ||
+                    pathname.startsWith(`${item.href}/`);
 
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      // Close on navigation directly, rather than reacting to a
-                      // pathname change in an effect.
-                      onClick={() => setOpen(false)}
-                      aria-current={active ? "page" : undefined}
-                      className={cn(
-                        "block rounded-md px-4 py-3 font-display text-lg transition-colors",
-                        active
-                          ? "bg-brand-50 text-brand-700 dark:bg-brand-100 dark:text-brand-800"
-                          : "text-ink hover:bg-surface-2",
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              })}
+                  return (
+                    <li key={item.href} className="border-b border-line">
+                      <Link
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        aria-current={active ? "page" : undefined}
+                        className={cn(
+                          "flex items-baseline gap-4 py-5 font-display text-[1.75rem] tracking-[-0.03em] transition-colors",
+                          active ? "text-accent" : "text-ink",
+                        )}
+                      >
+                        <span className="font-sans text-[0.75rem] tabular-nums text-faint">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        {item.label}
+                      </Link>
+                    </li>
+                  );
+                },
+              )}
             </ul>
           </nav>
 
-          <div className="flex items-center gap-3 border-t border-line p-5">
-            <Button asChild className="flex-1">
+          <div className="flex shrink-0 items-center gap-3 border-t border-line p-5 sm:px-8">
+            <Button asChild size="lg" className="flex-1">
               <Link href="/sponsor" onClick={() => setOpen(false)}>
-                Sponsor a Student
+                Sponsor a student
               </Link>
             </Button>
             <ThemeToggle />

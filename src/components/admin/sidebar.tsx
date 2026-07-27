@@ -44,8 +44,8 @@ export function SidebarNav({
                     className={cn(
                       "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
                       active
-                        ? "bg-brand-50 font-medium text-brand-700 dark:bg-brand-100 dark:text-brand-800"
-                        : "text-muted hover:bg-surface-2 hover:text-ink",
+                        ? "bg-accent-soft font-medium text-accent dark:bg-accent-soft dark:text-accent"
+                        : "text-muted hover:bg-subtle hover:text-ink",
                     )}
                   >
                     <AdminIcon name={item.icon} className="size-4 shrink-0" />

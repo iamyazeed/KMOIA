@@ -145,7 +145,7 @@ export function UploadDialog({ bucket = "public-media" as const }) {
                 setError(null);
                 setFile(selected);
               }}
-              className="w-full rounded-md border border-line bg-surface px-3 py-2.5 text-sm file:mr-3 file:rounded file:border-0 file:bg-surface-2 file:px-3 file:py-1.5 file:text-sm"
+              className="w-full rounded-md border border-line bg-surface px-3 py-2.5 text-sm file:mr-3 file:rounded file:border-0 file:bg-subtle file:px-3 file:py-1.5 file:text-sm"
             />
             {file ? (
               <p className="mt-2 text-xs text-muted">

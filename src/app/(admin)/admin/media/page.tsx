@@ -69,7 +69,7 @@ export default async function MediaPage({
               key={item.id}
               className="group overflow-hidden rounded-lg border border-line bg-surface"
             >
-              <div className="relative aspect-4/3 bg-surface-2">
+              <div className="relative aspect-4/3 bg-subtle">
                 <Image
                   src={mediaUrl(item.bucket, item.storage_path)}
                   alt={item.alt_text}
@@ -125,7 +125,7 @@ function FolderLink({
       href={`/admin/media?folder=${value}`}
       className={
         active
-          ? "rounded-full bg-brand-600 px-3.5 py-1.5 text-xs font-medium capitalize text-white dark:text-brand-50"
+          ? "rounded-full bg-accent px-3.5 py-1.5 text-xs font-medium capitalize text-white dark:text-accent"
           : "rounded-full border border-line px-3.5 py-1.5 text-xs capitalize text-muted transition-colors hover:text-ink"
       }
     >

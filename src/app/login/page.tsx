@@ -19,7 +19,7 @@ export default async function LoginPage({
   const { next } = await searchParams;
 
   return (
-    <main className="flex min-h-dvh items-center justify-center py-section-sm">
+    <main className="flex min-h-dvh items-center justify-center py-s1">
       <Container size="narrow" className="max-w-md">
         <div className="flex flex-col items-center text-center">
           <Image
@@ -44,7 +44,7 @@ export default async function LoginPage({
           </p>
         </div>
 
-        <div className="mt-10 rounded-lg border border-line bg-surface p-7 shadow-soft">
+        <div className="mt-10 rounded-lg border border-line bg-surface p-7 shadow-sm">
           <LoginForm next={next} />
         </div>
 
@@ -52,7 +52,7 @@ export default async function LoginPage({
           Accounts are created by invitation only.{" "}
           <Link
             href="/"
-            className="text-brand-600 underline-offset-4 hover:underline dark:text-brand-500"
+            className="text-accent underline-offset-4 hover:underline dark:text-accent"
           >
             Return to the website
           </Link>

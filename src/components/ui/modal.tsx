@@ -55,7 +55,7 @@ export function ModalContent({
       <Dialog.Content
         className={cn(
           "glass fixed left-1/2 top-1/2 z-50 w-[calc(100vw-2rem)] -translate-x-1/2 -translate-y-1/2",
-          "rounded-xl border shadow-lift focus:outline-none",
+          "rounded-xl border shadow-lg focus:outline-none",
           "max-h-[calc(100dvh-2rem)] overflow-y-auto",
           "data-[state=open]:animate-modal-in data-[state=closed]:animate-fade-out",
           sizes[size],
@@ -84,7 +84,7 @@ export function ModalContent({
           </div>
           <Dialog.Close
             aria-label="Close"
-            className="-mr-1 -mt-1 inline-flex size-9 shrink-0 items-center justify-center rounded-full text-muted transition-colors hover:bg-surface-2 hover:text-ink"
+            className="-mr-1 -mt-1 inline-flex size-9 shrink-0 items-center justify-center rounded-full text-muted transition-colors hover:bg-subtle hover:text-ink"
           >
             <X className="size-[18px]" aria-hidden />
           </Dialog.Close>

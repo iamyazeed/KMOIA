@@ -9,7 +9,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-line bg-surface">
-      <Container size="wide" className="py-section-sm">
+      <Container size="wide" className="py-s1">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div className="max-w-sm">
             <div className="flex items-center gap-3">
@@ -40,7 +40,7 @@ export function Footer() {
                 href={siteConfig.affiliation.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-600 underline-offset-4 hover:underline dark:text-brand-500"
+                className="text-accent underline-offset-4 hover:underline dark:text-accent"
               >
                 {siteConfig.affiliation.name}
               </a>

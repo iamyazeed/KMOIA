@@ -104,7 +104,7 @@ export default async function LegacyPage() {
       </Section>
 
       {/* Timeline */}
-      <Section surface="tint">
+      <Section tone="subtle">
         <Container size="wide">
           <Reveal>
             <SectionHeader
@@ -120,7 +120,7 @@ export default async function LegacyPage() {
                 {/* Marker sits on the rule, so the line reads as a spine. */}
                 <span
                   aria-hidden
-                  className="absolute -left-[2.3125rem] top-1.5 size-3 rounded-full bg-brand-500 ring-4 ring-surface-2 sm:-left-[2.8125rem]"
+                  className="absolute -left-[2.3125rem] top-1.5 size-3 rounded-full bg-accent-soft0 ring-4 ring-paper sm:-left-[2.8125rem]"
                 />
                 <Reveal delay={Math.min(index * 0.05, 0.2)}>
                   {event.year ? (
@@ -165,7 +165,7 @@ export default async function LegacyPage() {
                 href={siteConfig.affiliation.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-block text-brand-600 underline-offset-4 hover:underline dark:text-brand-500"
+                className="mt-3 inline-block text-accent underline-offset-4 hover:underline dark:text-accent"
               >
                 dhiu.in
               </a>

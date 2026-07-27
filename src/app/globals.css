@@ -1,203 +1,214 @@
 @import "tailwindcss";
 
-/* Class-based dark mode (next-themes writes .dark on <html>). */
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ---------------------------------------------------------------------------
-   Design tokens — KMO Islamic Academy
-   Raw values live on :root / .dark; @theme inline maps them onto Tailwind
-   utilities. Never hardcode a colour anywhere else in the codebase.
+   KMO Islamic Academy — design tokens
+
+   Principles this file encodes:
+   · White is the page. Colour appears only where it carries meaning.
+   · One accent (#2563EB). No secondary accent, no gold.
+   · Hairlines and space do the work that borders and shadows used to.
+   · Type hierarchy comes from size, weight and tracking — not from a second
+     typeface or a second colour.
 --------------------------------------------------------------------------- */
 
 :root {
-  /* Brand — built around #1f7fec, the chosen institutional blue.
-     Contrast is symmetric, so each ratio below applies both to the colour as
-     text on white and to white text on it as a fill. AA needs 4.5:1 for
-     body-size text, 3:1 for large text and UI elements:
-       brand-500 #1f7fec  → 3.96:1  the brand blue. Large headings, icons,
-                                    borders, markers. NOT body text or button
-                                    fills — it misses AA at small sizes.
-       brand-600 #1a6fd0  → 4.97:1  button fills, links, small text. AA safe.
-       brand-700 #145aab  → 6.7:1   strong text and headings on white. */
-  --brand-50: #eaf3fe;
-  --brand-100: #d2e6fd;
-  --brand-200: #a8ccfa;
-  --brand-300: #6faef6;
-  --brand-400: #3f93f0;
-  --brand-500: #1f7fec;
-  --brand-600: #1a6fd0;
-  --brand-700: #145aab;
-  --brand-800: #0f4382;
-  --brand-900: #0a2c56;
+  /* Accent — the single brand colour.
+     #2563EB on white measures 5.17:1, which clears WCAG AA for body text and
+     for white text on it as a fill. One value works everywhere; no split
+     between "display" and "safe" shades is needed. */
+  --blue-50: #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-200: #bfdbfe;
+  --blue-300: #93c5fd;
+  --blue-400: #60a5fa;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --blue-800: #1e40af;
+  --blue-900: #1e3a8a;
 
-  /* Accent — warm gold. Large text, borders and icons only. */
-  --accent-300: #e6d391;
-  --accent-400: #d9bb5b;
-  --accent-500: #c9a227;
-  --accent-600: #a8851c;
+  /* Neutrals — a true grey ramp. Warmth or coolness in the greys is what makes
+     a palette feel dated; this stays neutral so the blue is the only hue. */
+  --n-0: #ffffff;
+  --n-25: #fcfcfd;
+  --n-50: #f8f9fa;
+  --n-100: #f1f3f5;
+  --n-200: #e6e8eb;
+  --n-300: #d3d7dd;
+  --n-400: #a1a7b3;
+  --n-500: #757c8a;
+  --n-600: #545b69;
+  --n-700: #3c424e;
+  --n-800: #252a33;
+  --n-900: #14181f;
+  --n-950: #0a0d12;
 
-  /* Surfaces & text */
-  /* White is the primary surface. Sections alternate between pure white and a
-     faint blue-grey tint rather than between two off-whites, so the page reads
-     as white without becoming flat. */
-  --paper: #ffffff;
-  --surface: #ffffff;
-  --surface-2: #f3f7fc;
-  --ink: #0d1420;
-  --muted: #56637a;
-  --line: #e3eaf3;
+  --paper: var(--n-0);
+  --surface: var(--n-0);
+  --subtle: var(--n-50);
+  --ink: var(--n-900);
+  --muted: var(--n-600);
+  --faint: var(--n-500);
+  --line: var(--n-200);
+  --line-strong: var(--n-300);
 
-  /* Semantic */
-  --success: #12805c;
-  --warning: #b45309;
-  --danger: #b42318;
+  --accent: var(--blue-600);
+  --accent-hover: var(--blue-700);
+  --accent-soft: var(--blue-50);
 
-  /* Effects */
-  --glass-bg: rgb(255 255 255 / 0.72);
-  --glass-border: rgb(255 255 255 / 0.5);
-  --shadow-soft-v: 0 1px 2px rgb(15 21 34 / 0.04), 0 8px 24px rgb(15 21 34 / 0.06);
-  --shadow-lift-v: 0 2px 4px rgb(15 21 34 / 0.05), 0 16px 40px rgb(15 21 34 / 0.1);
-  --ring: var(--brand-500);
+  --danger: #d92d20;
+  --success: #067647;
+  --warning: #b54708;
+
+  --ring: var(--blue-600);
+  --glass: rgb(255 255 255 / 0.72);
+  --glass-line: rgb(0 0 0 / 0.06);
+
+  /* Shadows are almost invisible by design — one soft lift, used sparingly. */
+  --shadow-xs: 0 1px 2px rgb(10 13 18 / 0.04);
+  --shadow-sm: 0 1px 3px rgb(10 13 18 / 0.05), 0 1px 2px rgb(10 13 18 / 0.03);
+  --shadow-lg: 0 12px 32px -8px rgb(10 13 18 / 0.12), 0 4px 8px -4px rgb(10 13 18 / 0.06);
 }
 
 .dark {
-  /* Dark mode inverts the ramp. #1f7fec is too dim on a dark background for
-     text, so brand-500 lightens to #4f9dff (8.0:1 on --paper) while the raw
-     brand blue moves down the scale for fills. */
-  --brand-50: #0a2c56;
-  --brand-100: #0f4382;
-  --brand-200: #145aab;
-  --brand-300: #1a6fd0;
-  --brand-400: #1f7fec;
-  --brand-500: #4f9dff;
-  --brand-600: #7ab6ff;
-  --brand-700: #a8ccfa;
-  --brand-800: #d2e6fd;
-  --brand-900: #eaf3fe;
+  --paper: var(--n-950);
+  --surface: #0f1319;
+  --subtle: #141920;
+  --ink: #f2f4f7;
+  --muted: #99a1af;
+  --faint: #7b838f;
+  --line: #212630;
+  --line-strong: #2c323d;
 
-  --accent-300: #a8851c;
-  --accent-400: #c9a227;
-  --accent-500: #e0be55;
-  --accent-600: #ecd48c;
+  --accent: #4d8dfa;
+  --accent-hover: #6ba1fb;
+  --accent-soft: rgb(37 99 235 / 0.14);
 
-  --paper: #070c14;
-  --surface: #0e1520;
-  --surface-2: #161f2c;
-  --ink: #eef1f6;
-  --muted: #9aa5b5;
-  --line: #212b39;
+  --danger: #f97066;
+  --success: #47cd89;
+  --warning: #fdb022;
 
-  --success: #34a37a;
-  --warning: #e0a33f;
-  --danger: #e26a5f;
+  --ring: #4d8dfa;
+  --glass: rgb(15 19 25 / 0.72);
+  --glass-line: rgb(255 255 255 / 0.07);
 
-  --glass-bg: rgb(14 21 32 / 0.72);
-  --glass-border: rgb(255 255 255 / 0.08);
-  --shadow-soft-v: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.35);
-  --shadow-lift-v: 0 2px 4px rgb(0 0 0 / 0.35), 0 16px 40px rgb(0 0 0 / 0.45);
-  --ring: var(--brand-500);
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 12px 32px -8px rgb(0 0 0 / 0.6), 0 4px 8px -4px rgb(0 0 0 / 0.4);
 }
 
 @theme inline {
-  --color-brand-50: var(--brand-50);
-  --color-brand-100: var(--brand-100);
-  --color-brand-200: var(--brand-200);
-  --color-brand-300: var(--brand-300);
-  --color-brand-400: var(--brand-400);
-  --color-brand-500: var(--brand-500);
-  --color-brand-600: var(--brand-600);
-  --color-brand-700: var(--brand-700);
-  --color-brand-800: var(--brand-800);
-  --color-brand-900: var(--brand-900);
-
-  --color-accent-300: var(--accent-300);
-  --color-accent-400: var(--accent-400);
-  --color-accent-500: var(--accent-500);
-  --color-accent-600: var(--accent-600);
+  --color-blue-50: var(--blue-50);
+  --color-blue-100: var(--blue-100);
+  --color-blue-200: var(--blue-200);
+  --color-blue-300: var(--blue-300);
+  --color-blue-400: var(--blue-400);
+  --color-blue-500: var(--blue-500);
+  --color-blue-600: var(--blue-600);
+  --color-blue-700: var(--blue-700);
+  --color-blue-800: var(--blue-800);
+  --color-blue-900: var(--blue-900);
 
   --color-paper: var(--paper);
   --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
+  --color-subtle: var(--subtle);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
+  --color-faint: var(--faint);
   --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
   --color-success: var(--success);
   --color-warning: var(--warning);
-  --color-danger: var(--danger);
 
-  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-malayalam: var(--font-manjari), var(--font-inter), sans-serif;
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-malayalam: var(--font-malayalam), var(--font-body), sans-serif;
 
-  /* Fluid type scale */
-  --text-display: clamp(2.75rem, 1.6rem + 4.6vw, 5rem);
-  --text-display--line-height: 1.04;
-  --text-display--letter-spacing: -0.025em;
-  --text-h1: clamp(2.25rem, 1.5rem + 3vw, 3.75rem);
-  --text-h1--line-height: 1.08;
-  --text-h1--letter-spacing: -0.022em;
-  --text-h2: clamp(1.75rem, 1.25rem + 2vw, 2.75rem);
-  --text-h2--line-height: 1.15;
-  --text-h2--letter-spacing: -0.018em;
-  --text-h3: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem);
-  --text-h3--line-height: 1.25;
-  --text-h3--letter-spacing: -0.012em;
-  --text-lead: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
+  /* Editorial scale. Tracking tightens as size grows — the single most
+     effective lever for making large type look considered rather than merely
+     big. Line heights are deliberately tight at display sizes. */
+  --text-hero: clamp(2.75rem, 1.4rem + 5.6vw, 5.75rem);
+  --text-hero--line-height: 0.98;
+  --text-hero--letter-spacing: -0.042em;
+  --text-hero--font-weight: 500;
+
+  --text-h1: clamp(2.25rem, 1.5rem + 3.2vw, 3.75rem);
+  --text-h1--line-height: 1.04;
+  --text-h1--letter-spacing: -0.036em;
+  --text-h1--font-weight: 500;
+
+  --text-h2: clamp(1.75rem, 1.25rem + 2.1vw, 2.75rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.03em;
+  --text-h2--font-weight: 500;
+
+  --text-h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.018em;
+  --text-h3--font-weight: 500;
+
+  --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.1875rem);
   --text-lead--line-height: 1.65;
-  --text-eyebrow: 0.8125rem;
+  --text-lead--letter-spacing: -0.011em;
+
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.7;
+  --text-body--letter-spacing: -0.006em;
+
+  --text-eyebrow: 0.75rem;
   --text-eyebrow--line-height: 1.2;
-  --text-eyebrow--letter-spacing: 0.14em;
+  --text-eyebrow--letter-spacing: 0.1em;
+  --text-eyebrow--font-weight: 600;
 
-  /* Section rhythm — large whitespace is a core design instruction */
-  --spacing-section-sm: 4rem;
-  --spacing-section: 6rem;
-  --spacing-section-lg: 8rem;
-  --spacing-section-xl: 10rem;
+  /* Section rhythm — larger than before. Space is the primary luxury signal. */
+  --spacing-s1: 5rem;
+  --spacing-s2: 7.5rem;
+  --spacing-s3: 10rem;
+  --spacing-s4: 13rem;
 
-  --radius-xs: 0.375rem;
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
 
-  --shadow-soft: var(--shadow-soft-v);
-  --shadow-lift: var(--shadow-lift-v);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-lg: var(--shadow-lg);
 
-  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
-  --container-content: 68ch;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --container-prose: 62ch;
 
-  --animate-fade-in: fade-in 200ms cubic-bezier(0.22, 1, 0.36, 1);
-  --animate-fade-out: fade-out 150ms cubic-bezier(0.22, 1, 0.36, 1);
-  --animate-modal-in: modal-in 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-fade-in: fade-in 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-fade-out: fade-out 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-modal-in: modal-in 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-drawer-in: drawer-in 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 @keyframes modal-in {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -48%) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
+  from { opacity: 0; transform: translate(-50%, -48%) scale(0.98); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes drawer-in {
+  from { opacity: 0; transform: translateX(1.5rem); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @layer base {
@@ -213,68 +224,66 @@
   body {
     background-color: var(--paper);
     color: var(--ink);
-    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    letter-spacing: -0.006em;
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-family: var(--font-fraunces), ui-serif, Georgia, serif;
+  h1, h2, h3, h4 {
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
     font-weight: 500;
     text-wrap: balance;
   }
 
-  p {
-    text-wrap: pretty;
-  }
+  p { text-wrap: pretty; }
 
-  /* Malayalam content renders in its own face wherever lang="ml" is set. */
   :lang(ml) {
-    font-family: var(--font-manjari), var(--font-inter), sans-serif;
-    line-height: 1.85;
+    font-family: var(--font-malayalam), sans-serif;
+    line-height: 1.9;
+    letter-spacing: 0;
   }
 
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
-    border-radius: var(--radius-xs);
+    border-radius: var(--radius-sm);
   }
 
   ::selection {
-    background-color: var(--brand-700);
+    background-color: var(--blue-600);
     color: #fff;
-  }
-
-  .dark ::selection {
-    background-color: var(--brand-400);
-    color: var(--brand-50);
   }
 }
 
 @layer utilities {
-  /* Glassmorphism — permitted in exactly three places: sticky header,
-     donation modal, lightbox chrome. Do not extend this list. */
+  /* Glass is used in two places only: the sticky header and overlay chrome. */
   .glass {
-    background-color: var(--glass-bg);
-    border-color: var(--glass-border);
-    /* Composed from Tailwind's own utilities: raw backdrop-filter
-       declarations are stripped by Lightning CSS during the build. */
+    background-color: var(--glass);
+    border-color: var(--glass-line);
     @apply backdrop-blur-xl backdrop-saturate-150;
+  }
+
+  /* Hairline rules that fade at the ends — a quiet way to divide space
+     without drawing a hard box around everything. */
+  .rule-x {
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      var(--line) 12%,
+      var(--line) 88%,
+      transparent
+    );
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

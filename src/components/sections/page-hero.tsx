@@ -6,9 +6,10 @@ import { cn } from "@/lib/utils/cn";
 /**
  * Inner-page header.
  *
- * Deliberately typographic rather than photographic: only the homepage carries
- * a full-bleed image. Repeating that treatment on every page would slow each
- * one down and flatten the hierarchy between them.
+ * White, left-aligned, no tinted slab and no gradient wash. The page opens on
+ * a single large line of type with air around it; the hairline underneath is
+ * the only ornament. Restraint here is what makes the content below feel
+ * considered.
  */
 export function PageHero({
   eyebrow,
@@ -24,31 +25,20 @@ export function PageHero({
   className?: string;
 }) {
   return (
-    <section
-      className={cn(
-        "relative -mt-18 overflow-hidden border-b border-line bg-surface-2 pt-18",
-        className,
-      )}
-    >
-      {/* Soft brand wash — keeps the header from reading as a grey slab. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_28rem_at_15%_-20%,var(--brand-100),transparent)] opacity-70 dark:opacity-30"
-      />
-      <Container size="wide" className="relative py-section-sm sm:py-section">
+    <header className={cn("-mt-16 bg-paper pt-16", className)}>
+      <Container size="wide" className="pb-s1 pt-24 sm:pt-32">
         {eyebrow ? (
-          <p className="text-eyebrow font-semibold uppercase text-brand-600 dark:text-brand-500">
-            {eyebrow}
-          </p>
+          <p className="text-eyebrow uppercase text-faint">{eyebrow}</p>
         ) : null}
-        <h1 className="text-h1 mt-4 max-w-4xl">{title}</h1>
+        <h1 className={cn("text-h1 max-w-4xl", eyebrow && "mt-6")}>{title}</h1>
         {description ? (
-          <div className="text-lead mt-6 max-w-[var(--container-content)] text-muted">
+          <div className="text-lead mt-7 max-w-[var(--container-prose)] text-muted">
             {description}
           </div>
         ) : null}
-        {children ? <div className="mt-8">{children}</div> : null}
+        {children ? <div className="mt-10">{children}</div> : null}
       </Container>
-    </section>
+      <div aria-hidden className="mx-auto h-px w-full max-w-[88rem] rule-x" />
+    </header>
   );
 }

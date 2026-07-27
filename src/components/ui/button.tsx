@@ -6,34 +6,34 @@ import { cn } from "@/lib/utils/cn";
 
 const buttonVariants = cva(
   cn(
-    "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium",
-    "transition-[background-color,color,border-color,box-shadow,transform] duration-200",
-    "disabled:pointer-events-none disabled:opacity-50",
-    "[&_svg]:size-[1.05em] [&_svg]:shrink-0",
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap",
+    "font-medium tracking-[-0.01em]",
+    "transition-[background-color,color,border-color,opacity,transform] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)]",
+    "disabled:pointer-events-none disabled:opacity-45",
+    "[&_svg]:size-4 [&_svg]:shrink-0",
   ),
   {
     variants: {
       variant: {
-        // brand-600 #1a6fd0, not the brand blue itself: white on #1f7fec is
-        // 3.96:1, below the 4.5:1 WCAG AA requires for a body-size label.
-        // #1a6fd0 measures 4.97:1 and is visually adjacent. The pure brand blue
-        // is used for large type, icons and borders, where 3:1 applies.
-        primary:
-          "bg-brand-600 text-white shadow-soft hover:bg-brand-700 active:translate-y-px dark:bg-brand-300 dark:hover:bg-brand-200 dark:text-white",
+        // #2563EB with white text is 5.17:1 — one value, valid at every size,
+        // as a fill and as text. No shadow: the colour is the emphasis.
+        primary: "bg-accent text-white hover:bg-accent-hover active:scale-[0.99]",
+        // Hairline border, no shadow, no fill until hover.
         secondary:
-          "border border-line bg-surface text-ink hover:bg-surface-2 active:translate-y-px",
-        ghost: "text-ink hover:bg-surface-2",
-        accent:
-          "border border-accent-500 text-accent-600 hover:bg-accent-500/10 dark:text-accent-500",
-        // brand-600 rather than brand-500: link text is body-sized, and
-        // #1f7fec only reaches 3.96:1 on white.
-        link: "text-brand-600 underline-offset-4 hover:underline dark:text-brand-500",
+          "border border-line-strong bg-surface text-ink hover:bg-subtle active:scale-[0.99]",
+        ghost: "text-muted hover:bg-subtle hover:text-ink",
+        // Inline text link with an arrow — the workhorse of editorial layouts.
+        link: "text-accent hover:text-accent-hover [&_svg]:transition-transform [&_svg]:duration-200 hover:[&_svg]:translate-x-0.5",
+        // For use over photography.
+        onDark:
+          "border border-white/25 bg-white/10 text-white backdrop-blur-md hover:bg-white/20",
       },
       size: {
-        sm: "h-9 rounded-sm px-3.5 text-sm",
+        sm: "h-9 rounded-md px-3.5 text-[0.875rem]",
         md: "h-11 rounded-md px-5 text-[0.9375rem]",
-        lg: "h-13 rounded-md px-7 text-base",
-        icon: "size-10 rounded-full",
+        lg: "h-12 rounded-md px-6 text-[0.9375rem]",
+        icon: "size-10 rounded-md",
+        none: "",
       },
     },
     defaultVariants: { variant: "primary", size: "md" },
@@ -42,7 +42,6 @@ const buttonVariants = cva(
 
 export type ButtonProps = ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
-    /** Render as the child element (e.g. a `next/link`) instead of `<button>`. */
     asChild?: boolean;
   };
 

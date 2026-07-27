@@ -61,7 +61,7 @@ export function DataTable<Row extends { id: string }>({
           {rows.map((row) => (
             <tr
               key={row.id}
-              className="border-b border-line last:border-0 hover:bg-surface-2/60"
+              className="border-b border-line last:border-0 hover:bg-subtle/60"
             >
               {columns.map((column) => (
                 <td
