@@ -45,7 +45,17 @@ src/
 Defined once in `src/app/globals.css`: raw values on `:root` / `.dark`, mapped
 to Tailwind via `@theme inline`.
 
-- Brand: **#1f7fec** (`brand-500`) on white — the chosen identity colour.
+- Brand: **#2563EB** (`accent`) on white — 5.17:1, so one value is valid as
+  body text and as a fill behind white text. No second accent, no gold.
+- Type: **Geist** headings / **Inter** body. Hierarchy comes from size, weight
+  and tracking — never from a third typeface or a second colour.
+- **No cards.** Features, achievements, plans and news are typographic rows on
+  hairlines. Bordered icon-cards are what made the first attempt look generic.
+- Sections alternate `paper` (white) and `subtle`; there are no full-bleed
+  colour bands.
+
+<!-- superseded: the original blue -->
+- Legacy note: **#1f7fec** was the earlier identity colour.
   Contrast is symmetric, so #1f7fec is 3.96:1 against white *both* as text and
   as a fill behind white text. That clears AA for large text and UI (3:1) but
   **not** for body-size text (4.5:1). Therefore:
