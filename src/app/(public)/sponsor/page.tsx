@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { PageHero } from "@/components/sections/page-hero";
 import { SponsorOptions } from "@/components/sponsor/sponsor-options";
+import { resolveMediaUrl } from "@/lib/queries/media";
 import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -51,6 +52,14 @@ export default async function SponsorPage() {
     getRiceDonation(),
     getActiveDonationMethod(),
   ]);
+
+  // The QR is stored as a media id; resolve it to a real URL here so the
+  // modal never has to guess a storage path.
+  const qrUrl = await resolveMediaUrl(
+    method && "qr_media_id" in method.config
+      ? (method.config.qr_media_id as string | undefined)
+      : null,
+  );
 
   const planViews =
     plans.length > 0
@@ -106,6 +115,7 @@ export default async function SponsorPage() {
       <Section spacing="s2">
         <Container size="wide">
           <SponsorOptions
+            qrUrl={qrUrl}
             plans={planViews}
             rice={riceView}
             method={method}

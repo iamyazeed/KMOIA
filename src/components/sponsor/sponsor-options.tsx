@@ -37,10 +37,12 @@ const PERIOD_LABEL: Record<PlanView["period"], string> = {
  */
 export function SponsorOptions({
   plans,
+  qrUrl,
   rice,
   method,
 }: {
   plans: PlanView[];
+  qrUrl?: string | null;
   rice: RiceView | null;
   method: DonationMethod | null;
 }) {
@@ -126,6 +128,7 @@ export function SponsorOptions({
 
       <DonationModal
         method={method}
+        qrUrl={qrUrl}
         amount={amount}
         context={context}
         open={open}

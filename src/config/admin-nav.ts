@@ -74,17 +74,29 @@ export const adminNav: AdminNavGroup[] = [
   {
     title: "Sponsorship",
     items: [
-      { label: "Plans", href: "/admin/sponsorship", icon: "heart-handshake" },
+      {
+        label: "Plans",
+        href: "/admin/sponsorship",
+        icon: "heart-handshake",
+        ready: true,
+      },
       {
         label: "Donation Method",
         href: "/admin/sponsorship/donation-method",
         icon: "qr-code",
+        ready: true,
       },
-      { label: "Rice Donation", href: "/admin/sponsorship/rice", icon: "wheat" },
+      {
+        label: "Rice Donation",
+        href: "/admin/sponsorship/rice",
+        icon: "wheat",
+        ready: true,
+      },
       {
         label: "Donation Enquiries",
         href: "/admin/sponsorship/intents",
         icon: "inbox",
+        ready: true,
       },
     ],
   },

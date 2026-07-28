@@ -308,6 +308,23 @@ export type DonationMethod = {
   };
 }[DonationMethodType];
 
+/**
+ * Storage shape of a donation method.
+ *
+ * `config` is a jsonb column, so the table type keeps it loose. The
+ * discriminated `DonationMethod` above is an application-level refinement used
+ * when reading — a union cannot be used for writes, because `Partial<union>`
+ * collapses to the first member and rejects valid inserts.
+ */
+export type DonationMethodRecord = Auditable & {
+  id: string;
+  type: DonationMethodType;
+  label: string;
+  config: Record<string, unknown>;
+  display_note: string | null;
+  is_active: boolean;
+};
+
 export type RiceDonation = Auditable & {
   id: boolean;
   title: string;
@@ -409,7 +426,7 @@ export type Database = {
       gallery_items: Table<GalleryItem>;
       sponsorship_plans: Table<SponsorshipPlan>;
       sponsorship_provides: Table<SponsorshipProvide>;
-      donation_methods: Table<DonationMethod>;
+      donation_methods: Table<DonationMethodRecord>;
       rice_donation: Table<RiceDonation>;
       donation_intents: Table<DonationIntent>;
       contact_info: Table<ContactInfo>;

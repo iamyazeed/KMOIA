@@ -25,6 +25,8 @@ import type { DonationMethod } from "@/types/database";
 
 type Props = {
   method: DonationMethod | null;
+  /** Public URL of the QR image, resolved from the media row server-side. */
+  qrUrl?: string | null;
   amount?: number | null;
   context?: string;
   open: boolean;
@@ -33,6 +35,7 @@ type Props = {
 
 export function DonationModal({
   method,
+  qrUrl,
   amount,
   context,
   open,
@@ -68,7 +71,12 @@ export function DonationModal({
 
           <div className="px-6 py-6">
             {method ? (
-              <MethodRenderer method={method} amount={amount} context={context} />
+              <MethodRenderer
+                method={method}
+                qrUrl={qrUrl}
+                amount={amount}
+                context={context}
+              />
             ) : (
               <NotConfigured />
             )}
@@ -86,11 +94,13 @@ export function DonationModal({
 }
 
 function MethodRenderer({
+  qrUrl,
   method,
   amount,
   context,
 }: {
   method: DonationMethod;
+  qrUrl?: string | null;
   amount?: number | null;
   context?: string;
 }) {
@@ -102,7 +112,7 @@ function MethodRenderer({
       });
       return (
         <div className="flex flex-col gap-6">
-          <QrPlate mediaId={method.config.qr_media_id} />
+          <QrPlate src={qrUrl ?? null} />
           <DetailRows
             rows={[
               { label: "UPI ID", value: method.config.upi_id, copyable: true },
@@ -128,7 +138,7 @@ function MethodRenderer({
     case "qr_only":
       return (
         <div className="flex flex-col gap-6">
-          <QrPlate mediaId={method.config.qr_media_id} />
+          <QrPlate src={qrUrl ?? null} />
           <DetailRows
             rows={[
               {
@@ -226,8 +236,19 @@ function MethodRenderer({
   }
 }
 
-function QrPlate({ mediaId }: { mediaId: string }) {
-  const src = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/qr-codes/${mediaId}`;
+/**
+ * `src` is resolved server-side from the media row, not derived from the id.
+ * The stored value is a media UUID; the file lives at its own bucket and
+ * storage path, so building a URL out of the id produces a 404.
+ */
+function QrPlate({ src }: { src: string | null }) {
+  if (!src) {
+    return (
+      <p className="rounded-md border border-line bg-subtle px-4 py-6 text-center text-[0.875rem] text-muted">
+        The QR code image is missing. Please contact the academy.
+      </p>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center gap-3">
