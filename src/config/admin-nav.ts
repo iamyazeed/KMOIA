@@ -6,6 +6,14 @@ export type AdminNavItem = {
   icon: string;
   /** Roles allowed to see this item. Omitted means all staff. */
   roles?: UserRole[];
+  /**
+   * Whether the screen actually exists yet.
+   *
+   * Navigation must never advertise a route that has not been built — a link
+   * that 404s reads as a broken product, not an unfinished one. Items marked
+   * `false` render as disabled with a "Soon" tag until their phase lands.
+   */
+  ready?: boolean;
 };
 
 export type AdminNavGroup = {
@@ -22,7 +30,14 @@ export type AdminNavGroup = {
 export const adminNav: AdminNavGroup[] = [
   {
     title: "Overview",
-    items: [{ label: "Dashboard", href: "/admin", icon: "layout-dashboard" }],
+    items: [
+      {
+        label: "Dashboard",
+        href: "/admin",
+        icon: "layout-dashboard",
+        ready: true,
+      },
+    ],
   },
   {
     title: "Homepage",
@@ -37,7 +52,7 @@ export const adminNav: AdminNavGroup[] = [
     items: [
       { label: "Achievements", href: "/admin/achievements", icon: "award" },
       { label: "Departments", href: "/admin/departments", icon: "library" },
-      { label: "Faculty", href: "/admin/faculty", icon: "users" },
+      { label: "Faculty", href: "/admin/faculty", icon: "users", ready: true },
       { label: "Facilities", href: "/admin/facilities", icon: "building-2" },
       { label: "Student Skills", href: "/admin/skills", icon: "sparkles" },
       { label: "Timeline", href: "/admin/timeline", icon: "milestone" },
@@ -48,7 +63,12 @@ export const adminNav: AdminNavGroup[] = [
     items: [
       { label: "News", href: "/admin/news", icon: "newspaper" },
       { label: "Gallery", href: "/admin/gallery", icon: "images" },
-      { label: "Media Library", href: "/admin/media", icon: "folder-open" },
+      {
+        label: "Media Library",
+        href: "/admin/media",
+        icon: "folder-open",
+        ready: true,
+      },
     ],
   },
   {

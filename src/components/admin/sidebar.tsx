@@ -34,6 +34,26 @@ export function SidebarNav({
                   ? pathname === "/admin"
                   : pathname === item.href || pathname.startsWith(`${item.href}/`);
 
+              // Screens that do not exist yet are shown but not clickable —
+              // a link that 404s reads as broken, not as unfinished.
+              if (!item.ready) {
+                return (
+                  <li key={item.href}>
+                    <span
+                      aria-disabled="true"
+                      title="Not built yet"
+                      className="flex cursor-not-allowed items-center gap-3 rounded-md px-3 py-2 text-sm text-faint/70"
+                    >
+                      <AdminIcon name={item.icon} className="size-4 shrink-0" />
+                      <span className="flex-1">{item.label}</span>
+                      <span className="rounded bg-subtle px-1.5 py-0.5 text-[0.625rem] font-medium uppercase tracking-wide text-faint">
+                        Soon
+                      </span>
+                    </span>
+                  </li>
+                );
+              }
+
               return (
                 <li key={item.href}>
                   <Link

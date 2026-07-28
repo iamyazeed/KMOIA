@@ -1,11 +1,10 @@
-import { AlertTriangle, ArrowRight } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import Link from "next/link";
 
 import { AdminIcon } from "@/components/admin/icon";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { EmptyState } from "@/components/admin/ui";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardBody } from "@/components/ui/card";
 import { requireStaff } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -76,36 +75,45 @@ export default async function AdminDashboard() {
   // rather than rendering a wall of zeroes that looks like real data.
   const notMigrated = unreadMessages.error?.code === "PGRST205";
 
+  // `ready` marks whether the destination screen exists yet. Tiles for
+  // unbuilt screens still show their count — the number is useful — but are
+  // not clickable, because a link that 404s reads as broken rather than
+  // unfinished.
   const tiles = [
     {
       label: "Unread messages",
       value: unreadMessages.count ?? 0,
       href: "/admin/messages",
       icon: "mail",
+      ready: false,
     },
     {
       label: "Donation enquiries",
       value: pendingIntents.count ?? 0,
       href: "/admin/sponsorship/intents",
       icon: "heart-handshake",
+      ready: false,
     },
     {
       label: "Published news",
       value: publishedNews.count ?? 0,
       href: "/admin/news",
       icon: "newspaper",
+      ready: false,
     },
     {
       label: "Gallery images",
       value: galleryCount.count ?? 0,
       href: "/admin/gallery",
       icon: "images",
+      ready: false,
     },
     {
       label: "Faculty members",
       value: facultyCount.count ?? 0,
       href: "/admin/faculty",
       icon: "users",
+      ready: true,
     },
   ];
 
@@ -138,31 +146,42 @@ export default async function AdminDashboard() {
                   are set up.
                 </p>
               </div>
-              <Button asChild size="sm" variant="secondary">
-                <Link href="/admin/sponsorship/donation-method">Set up</Link>
-              </Button>
+              <span className="shrink-0 self-center text-xs text-muted">
+                Configurable in the next phase
+              </span>
             </div>
           ) : null}
 
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {tiles.map((tile) => (
-              <li key={tile.label}>
-                <Link href={tile.href} className="block">
-                  <Card variant="elevated" interactive className="h-full">
-                    <CardBody className="p-5">
-                      <AdminIcon
-                        name={tile.icon}
-                        className="size-5 text-accent"
-                      />
-                      <p className="mt-4 font-display text-3xl font-semibold">
-                        {tile.value}
-                      </p>
-                      <p className="mt-1 text-sm text-muted">{tile.label}</p>
-                    </CardBody>
-                  </Card>
-                </Link>
-              </li>
-            ))}
+            {tiles.map((tile) => {
+              const card = (
+                <Card
+                  variant="elevated"
+                  interactive={tile.ready}
+                  className="h-full"
+                >
+                  <CardBody className="p-5">
+                    <AdminIcon name={tile.icon} className="size-5 text-accent" />
+                    <p className="mt-4 font-display text-3xl font-semibold">
+                      {tile.value}
+                    </p>
+                    <p className="mt-1 text-sm text-muted">{tile.label}</p>
+                  </CardBody>
+                </Card>
+              );
+
+              return (
+                <li key={tile.label}>
+                  {tile.ready ? (
+                    <Link href={tile.href} className="block h-full">
+                      {card}
+                    </Link>
+                  ) : (
+                    card
+                  )}
+                </li>
+              );
+            })}
           </ul>
 
           <div className="grid gap-6 lg:grid-cols-2">
@@ -172,12 +191,6 @@ export default async function AdminDashboard() {
                   <h2 className="font-display text-lg font-medium">
                     Recent messages
                   </h2>
-                  <Button asChild variant="link" size="sm">
-                    <Link href="/admin/messages">
-                      View all
-                      <ArrowRight className="size-3.5" aria-hidden />
-                    </Link>
-                  </Button>
                 </div>
 
                 {recentMessages.data && recentMessages.data.length > 0 ? (
@@ -212,12 +225,6 @@ export default async function AdminDashboard() {
                   <h2 className="font-display text-lg font-medium">
                     Recent news
                   </h2>
-                  <Button asChild variant="link" size="sm">
-                    <Link href="/admin/news">
-                      View all
-                      <ArrowRight className="size-3.5" aria-hidden />
-                    </Link>
-                  </Button>
                 </div>
 
                 {recentNews.data && recentNews.data.length > 0 ? (
