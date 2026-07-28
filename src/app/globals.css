@@ -268,6 +268,72 @@
     @apply backdrop-blur-xl backdrop-saturate-150;
   }
 
+  /* Editing surface for the article editor. Mirrors the public article
+     styles closely enough that what an author sees matches what publishes,
+     without pulling in a typography plugin. */
+  .prose-editor :where(h2) {
+    font-family: var(--font-display), sans-serif;
+    font-size: 1.375rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-editor :where(h3) {
+    font-family: var(--font-display), sans-serif;
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-editor :where(p) {
+    margin-bottom: 0.75rem;
+  }
+  .prose-editor :where(ul) {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-editor :where(ol) {
+    list-style: decimal;
+    padding-left: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-editor :where(blockquote) {
+    border-left: 2px solid var(--line-strong);
+    padding-left: 1rem;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .prose-editor :where(a) {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-editor :where(hr) {
+    border-color: var(--line);
+    margin: 1.25rem 0;
+  }
+  .prose-editor :where(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0.75rem;
+  }
+  .prose-editor :where(th, td) {
+    border: 1px solid var(--line);
+    padding: 0.5rem 0.625rem;
+    text-align: left;
+  }
+  .prose-editor :where(th) {
+    background-color: var(--subtle);
+    font-weight: 500;
+  }
+  .prose-editor :where(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+  }
+
   /* Hairline rules that fade at the ends — a quiet way to divide space
      without drawing a hard box around everything. */
   .rule-x {

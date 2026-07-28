@@ -61,8 +61,13 @@ export const adminNav: AdminNavGroup[] = [
   {
     title: "Content",
     items: [
-      { label: "News", href: "/admin/news", icon: "newspaper" },
-      { label: "Gallery", href: "/admin/gallery", icon: "images" },
+      {
+        label: "News",
+        href: "/admin/news",
+        icon: "newspaper",
+        ready: true,
+      },
+      { label: "Gallery", href: "/admin/gallery", icon: "images", ready: true },
       {
         label: "Media Library",
         href: "/admin/media",
