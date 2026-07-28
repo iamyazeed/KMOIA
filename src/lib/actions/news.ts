@@ -1,6 +1,6 @@
 "use server";
 
-import { updateTag } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 
 import { requireAdmin } from "@/lib/auth";
 import { CACHE_TAGS } from "@/lib/cache-tags";
@@ -9,6 +9,20 @@ import { newsSchema, slugifyTitle } from "@/lib/validation/news";
 import type { RichTextDocument } from "@/types/database";
 
 export type NewsState = { error?: string; success?: string } | undefined;
+
+/**
+ * Purges both caches after a write.
+ *
+ * `updateTag` clears the data cache, but `/news` is statically rendered with
+ * ISR, so the *rendered page* stayed cached until its revalidate window
+ * elapsed — a newly published article only appeared an hour later. The route
+ * cache has to be purged explicitly as well.
+ */
+function revalidateNews() {
+  updateTag(CACHE_TAGS.news);
+  revalidatePath("/news");
+  revalidatePath("/news/[slug]", "page");
+}
 
 function nullify(value: FormDataEntryValue | null) {
   const text = typeof value === "string" ? value.trim() : "";
@@ -91,7 +105,7 @@ export async function createNews(
   const { error } = await supabase.from("news_posts").insert({ ...values, slug });
   if (error) return { error: error.message };
 
-  updateTag(CACHE_TAGS.news);
+  revalidateNews();
   return { success: "Article created." };
 }
 
@@ -115,7 +129,7 @@ export async function updateNews(
 
   if (error) return { error: error.message };
 
-  updateTag(CACHE_TAGS.news);
+  revalidateNews();
   return { success: "Changes saved." };
 }
 
@@ -136,7 +150,7 @@ export async function setNewsStatus(
   const { error } = await supabase.from("news_posts").update(patch).eq("id", id);
   if (error) return { error: error.message };
 
-  updateTag(CACHE_TAGS.news);
+  revalidateNews();
   return { success: status === "published" ? "Published." : "Unpublished." };
 }
 
@@ -151,7 +165,7 @@ export async function deleteNews(id: string): Promise<NewsState> {
 
   if (error) return { error: error.message };
 
-  updateTag(CACHE_TAGS.news);
+  revalidateNews();
   return { success: "Moved to trash." };
 }
 
@@ -166,6 +180,6 @@ export async function restoreNews(id: string): Promise<NewsState> {
 
   if (error) return { error: error.message };
 
-  updateTag(CACHE_TAGS.news);
+  revalidateNews();
   return { success: "Restored." };
 }

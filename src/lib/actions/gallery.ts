@@ -1,6 +1,6 @@
 "use server";
 
-import { updateTag } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { z } from "zod";
 
 import { requireAdmin } from "@/lib/auth";
@@ -41,6 +41,7 @@ export async function addGalleryItems(
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.gallery);
+  revalidatePath("/gallery");
   return {
     success: `${mediaIds.length} image${mediaIds.length === 1 ? "" : "s"} added.`,
   };
@@ -79,6 +80,7 @@ export async function updateGalleryItem(
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.gallery);
+  revalidatePath("/gallery");
   return { success: "Image updated." };
 }
 
@@ -100,6 +102,7 @@ export async function removeGalleryItem(id: string): Promise<GalleryState> {
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.gallery);
+  revalidatePath("/gallery");
   return { success: "Removed from the gallery." };
 }
 
@@ -115,5 +118,6 @@ export async function restoreGalleryItem(id: string): Promise<GalleryState> {
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.gallery);
+  revalidatePath("/gallery");
   return { success: "Restored." };
 }

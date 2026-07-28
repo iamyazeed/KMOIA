@@ -1,6 +1,6 @@
 "use server";
 
-import { updateTag } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 
 import { requireAdmin } from "@/lib/auth";
 import { CACHE_TAGS } from "@/lib/cache-tags";
@@ -76,6 +76,7 @@ export async function createFaculty(
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.faculty);
+  revalidatePath("/faculty");
   updateTag(CACHE_TAGS.departments);
   return { success: "Faculty member added." };
 }
@@ -112,6 +113,7 @@ export async function updateFaculty(
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.faculty);
+  revalidatePath("/faculty");
   updateTag(CACHE_TAGS.departments);
   return { success: "Changes saved." };
 }
@@ -134,6 +136,7 @@ export async function deleteFaculty(id: string): Promise<FacultyState> {
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.faculty);
+  revalidatePath("/faculty");
   return { success: "Moved to trash." };
 }
 
@@ -149,6 +152,7 @@ export async function restoreFaculty(id: string): Promise<FacultyState> {
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.faculty);
+  revalidatePath("/faculty");
   return { success: "Restored." };
 }
 
@@ -165,6 +169,7 @@ export async function setFacultyStatus(
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.faculty);
+  revalidatePath("/faculty");
   return { success: status === "published" ? "Published." : "Unpublished." };
 }
 
@@ -186,5 +191,6 @@ export async function reorderFaculty(
   if (failed?.error) return { error: failed.error.message };
 
   updateTag(CACHE_TAGS.faculty);
+  revalidatePath("/faculty");
   return { success: "Order saved." };
 }

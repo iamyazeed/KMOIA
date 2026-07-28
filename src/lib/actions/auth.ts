@@ -14,6 +14,54 @@ const signInSchema = z.object({
 
 export type AuthState = { error?: string } | undefined;
 
+/** Admin routes that actually exist and are safe to land on after sign-in. */
+const ADMIN_DESTINATIONS = [
+  "/admin",
+  "/admin/faculty",
+  "/admin/media",
+  "/admin/news",
+  "/admin/gallery",
+  "/admin/sponsorship",
+  "/admin/sponsorship/donation-method",
+  "/admin/sponsorship/rice",
+  "/admin/sponsorship/intents",
+];
+
+/**
+ * Resolves where to send someone after signing in.
+ *
+ * The `next` parameter is set by the proxy from whatever URL was originally
+ * requested, so it can point at a path that does not exist — visiting
+ * `/admin/login` produced `next=/admin/login`, and returning there after a
+ * successful sign-in landed the user on a 404. Only known destinations are
+ * honoured; anything else falls back to the dashboard.
+ *
+ * This also closes the open-redirect vector: an attacker-supplied `next`
+ * can never leave the site.
+ */
+/** Sections with per-record editors: `/admin/news/new`, `/admin/faculty/<id>`. */
+const DYNAMIC_PARENTS = ["/admin/faculty", "/admin/news"];
+
+function safeDestination(next?: string) {
+  if (!next || !next.startsWith("/") || next.startsWith("//")) return "/admin";
+
+  // Compare without query or hash so `/admin/news?view=trash` still works.
+  const path = next.split(/[?#]/)[0].replace(/\/+$/, "") || "/admin";
+
+  // Exact matches only. A prefix test would re-admit the original bug, since
+  // `/admin/login` starts with `/admin`.
+  if (ADMIN_DESTINATIONS.includes(path)) return next;
+
+  // Allow exactly one further segment under sections that have record pages.
+  const editor = DYNAMIC_PARENTS.some((parent) => {
+    if (!path.startsWith(`${parent}/`)) return false;
+    const rest = path.slice(parent.length + 1);
+    return rest.length > 0 && !rest.includes("/");
+  });
+
+  return editor ? next : "/admin";
+}
+
 export async function signIn(
   _prev: AuthState,
   formData: FormData,
@@ -52,14 +100,8 @@ export async function signIn(
     return { error: "This account is not active. Contact a super admin." };
   }
 
-  const next = parsed.data.next;
-  // Only same-site paths — an open redirect here would be a phishing vector.
-  const destination = next?.startsWith("/") && !next.startsWith("//")
-    ? next
-    : "/admin";
-
   revalidatePath("/", "layout");
-  redirect(destination);
+  redirect(safeDestination(parsed.data.next));
 }
 
 export async function signOut() {

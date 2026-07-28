@@ -1,6 +1,6 @@
 "use server";
 
-import { updateTag } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { z } from "zod";
 
 import { requireAdmin } from "@/lib/auth";
@@ -73,6 +73,7 @@ export async function saveDonationMethod(
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.donationMethod);
+  revalidatePath("/sponsor");
   return { success: "Donation method saved and made active." };
 }
 
@@ -97,6 +98,7 @@ export async function activateDonationMethod(
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.donationMethod);
+  revalidatePath("/sponsor");
   return { success: "This method is now active." };
 }
 
@@ -122,6 +124,7 @@ export async function deleteDonationMethod(id: string): Promise<SponsorState> {
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.donationMethod);
+  revalidatePath("/sponsor");
   return { success: "Method deleted." };
 }
 
@@ -165,6 +168,7 @@ export async function saveRiceDonation(
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.rice);
+  revalidatePath("/sponsor");
   return { success: "Rice donation updated." };
 }
 
@@ -218,6 +222,7 @@ export async function savePlan(
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.sponsorship);
+  revalidatePath("/sponsor");
   return { success: id ? "Plan updated." : "Plan added." };
 }
 
@@ -233,6 +238,7 @@ export async function deletePlan(id: string): Promise<SponsorState> {
   if (error) return { error: error.message };
 
   updateTag(CACHE_TAGS.sponsorship);
+  revalidatePath("/sponsor");
   return { success: "Plan removed." };
 }
 

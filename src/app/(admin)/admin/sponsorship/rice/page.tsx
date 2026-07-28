@@ -5,7 +5,7 @@ import { AdminPageHeader } from "@/components/admin/page-header";
 import { requireAdmin } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 
-export const metadata: Metadata = { title: "Rice Donation" };
+export const metadata: Metadata = { title: "Food Donation" };
 
 export default async function RiceDonationPage() {
   await requireAdmin();
