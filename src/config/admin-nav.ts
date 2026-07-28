@@ -42,20 +42,20 @@ export const adminNav: AdminNavGroup[] = [
   {
     title: "Homepage",
     items: [
-      { label: "Hero", href: "/admin/hero", icon: "image" },
-      { label: "Statistics", href: "/admin/statistics", icon: "bar-chart-3" },
-      { label: "Sections", href: "/admin/sections", icon: "layout-template" },
+      { label: "Hero", href: "/admin/hero", icon: "image", ready: true },
+      { label: "Statistics", href: "/admin/statistics", icon: "bar-chart-3", ready: true },
+      { label: "Sections", href: "/admin/sections", icon: "layout-template", ready: true },
     ],
   },
   {
     title: "Institution",
     items: [
-      { label: "Achievements", href: "/admin/achievements", icon: "award" },
-      { label: "Departments", href: "/admin/departments", icon: "library" },
+      { label: "Achievements", href: "/admin/achievements", icon: "award", ready: true },
+      { label: "Departments", href: "/admin/departments", icon: "library", ready: true },
       { label: "Faculty", href: "/admin/faculty", icon: "users", ready: true },
-      { label: "Facilities", href: "/admin/facilities", icon: "building-2" },
-      { label: "Student Skills", href: "/admin/skills", icon: "sparkles" },
-      { label: "Timeline", href: "/admin/timeline", icon: "milestone" },
+      { label: "Facilities", href: "/admin/facilities", icon: "building-2", ready: true },
+      { label: "Student Skills", href: "/admin/skills", icon: "sparkles", ready: true },
+      { label: "Timeline", href: "/admin/timeline", icon: "milestone", ready: true },
     ],
   },
   {
